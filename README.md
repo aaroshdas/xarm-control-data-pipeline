@@ -1,4 +1,4 @@
-# Xbox teleop
+# Controller teleop
 
 Just the commands, in order. (Environment/venv/ROS setup is assumed already done.)
 
