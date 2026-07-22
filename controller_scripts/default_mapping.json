@@ -1,0 +1,36 @@
+{
+  "deadman_button": 7,
+  "gripper_button": 0,
+  "axes": {
+    "lx": {
+      "index": 0,
+      "rest": 0.107,
+      "active": -1.0
+    },
+    "ly": {
+      "index": 1,
+      "rest": 0.017,
+      "active": 0.994
+    },
+    "rx": {
+      "index": 2,
+      "rest": 0.059,
+      "active": 1.0
+    },
+    "ry": {
+      "index": 3,
+      "rest": 0.092,
+      "active": -1.0
+    },
+    "trig_up": {
+      "index": 4,
+      "rest": -1.0,
+      "active": 1.0
+    },
+    "trig_down": {
+      "index": 5,
+      "rest": -1.0,
+      "active": 1.0
+    }
+  }
+}
