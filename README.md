@@ -1,11 +1,9 @@
 # Controller teleop
 
-Just the commands, in order. (Environment/venv/ROS setup is assumed already done.)
-
 Two scripts command the arm — the **bridge** and **reset_arm** — so never run
 them at the same time. Reset while the bridge is stopped.
 
-Also rememeber to NEVER delete raw data
+Also rememeber to NEVER delete raw data unless taking up like 100gb (but upload to hugging face first)
 
 ### Ensure BOTH config.py files in the **/controller_scripts** and **/data_processing** folder are updated and aligned
 .env files not working on Thor setup for now
