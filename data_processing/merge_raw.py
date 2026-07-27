@@ -1,24 +1,10 @@
-"""merge_raw.py — combine several per-object raw folders into ONE, renumbering.
+"""merge_raw.py
+python3 merge_raw.py \
+    --out ~/aarosh/datasets/all_objects \
+    ~/aarosh/datasets/styrofoam_block \
+    ~/aarosh/datasets/wooden_block
 
-Each object folder has its own episode_000, episode_001, ... which collide.
-This copies them all into a single destination folder with continuous
-numbering, so the rest of the pipeline (remove_zero -> fix_delta_ee ->
-raw2lerobot) can run once over the combined set.
-
-Example:
-    python3 merge_raw.py \
-        --out ~/aarosh/datasets/all_objects \
-        ~/aarosh/datasets/styrofoam_block \
-        ~/aarosh/datasets/wooden_block
-
-    # styrofoam episodes -> episode_000..017, wooden -> episode_018..035
-
-Order matters: sources are appended in the order you list them. By default it
-COPIES (originals untouched — delete them yourself once you've verified). Pass
---move to move instead (frees space immediately, empties the sources).
-
-A manifest.txt is written into --out recording which source each episode came
-from, so you can always tell which episodes are which object.
+# styrofoam episodes -> episode_000..017, wooden -> episode_018..035
 """
 import argparse
 import shutil
