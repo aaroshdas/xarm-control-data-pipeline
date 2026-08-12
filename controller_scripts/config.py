@@ -1,1 +1,1 @@
-CURRENT_DATASET_NAME = "wooden_block"
+CURRENT_DATASET_NAME = "foam_block"
