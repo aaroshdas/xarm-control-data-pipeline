@@ -151,6 +151,8 @@ def main():
     ap.add_argument("--port", type=int, default=8000)
     ap.add_argument("--prompt", required=True, help="task text, e.g. 'put the red cube into the plastic cup'")
     ap.add_argument("--max-steps", type=int, default=300, help="hard cap on control steps per trial")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="perceive + infer + PRINT the action chunk, but NEVER move the arm (diagnostic)")
     args = ap.parse_args()
 
     cams = Cameras([CAM_BASE_SERIAL, CAM_WRIST_SERIAL])
@@ -158,7 +160,11 @@ def main():
     client = websocket_client_policy.WebsocketClientPolicy(host=args.host, port=args.port)
     print(f"connected to policy server at {args.host}:{args.port}")
     print(f"prompt: {args.prompt!r}")
-    input(">>> hand on the E-STOP. Press ENTER to start the trial (Ctrl-C to abort)...")
+    if args.dry_run:
+        print(">>> DRY RUN: reading cameras/state and printing actions ONLY. The arm will NOT move.")
+        input(">>> Press ENTER to start the dry run (Ctrl-C to stop)...")
+    else:
+        input(">>> hand on the E-STOP. Press ENTER to start the trial (Ctrl-C to abort)...")
 
     dt = 1.0 / CONTROL_HZ
     gripper_closed = False
@@ -183,6 +189,21 @@ def main():
             result = client.infer(obs)
             actions = np.asarray(result["actions"])         # [H, 7], real units (cm/rad)
 
+            # Show the raw chunk the policy returned so we can judge sanity.
+            # Columns are the model's real-unit deltas: xyz(cm), rot(rad), gripper.
+            print(f"\n[infer @ step {step_count}] action chunk (cm, cm, cm, rad, rad, rad, grip):")
+            for i in range(min(EXEC_HORIZON, actions.shape[0])):
+                a = actions[i]
+                print(f"   {i}: "
+                      f"[{a[0]:+.3f} {a[1]:+.3f} {a[2]:+.3f} | "
+                      f"{a[3]:+.3f} {a[4]:+.3f} {a[5]:+.3f} | {a[6]:+.2f}]")
+
+            if args.dry_run:
+                # look only — never touch the arm
+                step_count += min(EXEC_HORIZON, actions.shape[0])
+                time.sleep(0.5)
+                continue
+
             # ---- execute the first EXEC_HORIZON steps as position moves ----
             # anchor on the arm's ACTUAL current pose each chunk (corrects drift),
             # then accumulate the per-step deltas onto a running target.
@@ -204,7 +225,9 @@ def main():
                             print(f"\n[safety] target axis {j}={target[j]:.0f} out of workspace box — stopping.")
                             raise KeyboardInterrupt
 
-                arm.set_position(*target, speed=SPEED, mvacc=MVACC, wait=False, is_radian=False)
+                # wait=True => one move completes before the next (NO buffered queue
+                # that could keep running after Ctrl-C). Slower but safe & non-glitchy.
+                arm.set_position(*target, speed=SPEED, mvacc=MVACC, wait=True, is_radian=False)
 
                 # gripper: edge-triggered on the sign of action[6]
                 want_close = a[6] > 0
@@ -212,23 +235,24 @@ def main():
                     gripper_closed = want_close
                     arm.set_gripper_position(GRIPPER_CLOSE if gripper_closed else GRIPPER_OPEN, wait=False)
 
-                print(f"step {step_count:4d}  d_mm=[{dxyz[0]:5.1f},{dxyz[1]:5.1f},{dxyz[2]:5.1f}] "
-                      f"grip={'C' if gripper_closed else 'O'}   ", end="\r")
                 step_count += 1
-                time.sleep(dt)
 
         print("\nreached max-steps.")
 
     except KeyboardInterrupt:
         print("\naborted.")
     finally:
+        # HARD STOP: set_state(4) halts motion immediately and clears any queued
+        # moves (set_state(0) does NOT — that was the runaway bug).
         try:
-            arm.set_state(0)
+            arm.set_state(4)
+            time.sleep(0.2)
         except Exception:
             pass
         cams.close()
-        res = input("\ntrial result — type 's' for SUCCESS, anything else for FAIL: ").strip().lower()
-        print("SUCCESS" if res == "s" else "FAIL")
+        if not args.dry_run:
+            res = input("\ntrial result — type 's' for SUCCESS, anything else for FAIL: ").strip().lower()
+            print("SUCCESS" if res == "s" else "FAIL")
         arm.disconnect()
 
 
