@@ -153,7 +153,7 @@ def main():
     ap.add_argument("--host", required=True, help="GPU server IP/hostname running serve_policy")
     ap.add_argument("--port", type=int, default=8000)
     ap.add_argument("--prompt", required=True, help="task text, e.g. 'put the red cube into the plastic cup'")
-    ap.add_argument("--max-steps", type=int, default=300, help="hard cap on control steps per trial")
+    ap.add_argument("--max-steps", type=int, default=650, help="hard cap on control steps per trial")
     ap.add_argument("--dry-run", action="store_true",
                     help="perceive + infer + PRINT the action chunk, but NEVER move the arm (diagnostic)")
     ap.add_argument("--policy", default="unknown",
