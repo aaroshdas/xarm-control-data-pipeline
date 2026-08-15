@@ -147,8 +147,12 @@ def main():
     ap.add_argument("--port", type=int, default=8000)
     ap.add_argument("--prompt", required=True, help="task text, e.g. 'put the cube into the bowl'")
     ap.add_argument("--object", required=True,
-                    help="object present — MUST match a name in the latents file (e.g. sponge_stack, wooden_block)")
+                    help="object present. With --latent-npy this is just a CSV label; otherwise it MUST "
+                         "match a name in the latents file (e.g. sponge_stack, wooden_block)")
     ap.add_argument("--latents-file", default="object_latents.npz", help="per-object TacGen latents (.npz)")
+    ap.add_argument("--latent-npy", default=None,
+                    help="path to a single 128-d .npy latent (for a NEW/unseen object; see compute_latent.py). "
+                         "Overrides the --latents-file lookup.")
     ap.add_argument("--max-steps", type=int, default=300)
     ap.add_argument("--dry-run", action="store_true",
                     help="perceive + infer + PRINT the action chunk, but NEVER move the arm (diagnostic)")
@@ -156,8 +160,15 @@ def main():
     ap.add_argument("--log", default="eval_results.csv")
     args = ap.parse_args()
 
-    tac_latent = load_object_latent(args.latents_file, args.object)  # (128,) float32
-    print(f"loaded tactile latent for object {args.object!r} (norm={np.linalg.norm(tac_latent):.3f})")
+    if args.latent_npy:
+        tac_latent = np.asarray(np.load(args.latent_npy), dtype=np.float32).reshape(-1)
+        if tac_latent.shape != (128,):
+            raise SystemExit(f"{args.latent_npy}: expected a 128-d latent, got {tac_latent.shape}")
+        print(f"loaded tactile latent from {args.latent_npy} for NEW object {args.object!r} "
+              f"(norm={np.linalg.norm(tac_latent):.3f})")
+    else:
+        tac_latent = load_object_latent(args.latents_file, args.object)  # (128,) float32
+        print(f"loaded tactile latent for object {args.object!r} (norm={np.linalg.norm(tac_latent):.3f})")
 
     cams = Cameras([CAM_BASE_SERIAL, CAM_WRIST_SERIAL])
     arm = setup_arm()

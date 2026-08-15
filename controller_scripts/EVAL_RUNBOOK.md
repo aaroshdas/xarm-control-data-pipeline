@@ -140,12 +140,13 @@ scp wy891@ecehpavw1202c.umd.edu:/export/wy891/home/_tacgen_probe_tmp/object_late
 ```bash
 tmux -f /dev/null new -s tacin_serve ; bash
 source /export/wy891/aarosh/tactile_input_model/setup_env_newmodel.sh
-ls checkpoints/pi05_xarm_tacin/tacin_v1/            # find the step folder (e.g. 20000)
+ls checkpoints/pi05_xarm_tacin/tacin_v1/            # final saved step is 19999
 CUDA_VISIBLE_DEVICES=<free_gpu> $PY scripts/serve_policy.py policy:checkpoint \
   --policy.config=pi05_xarm_tacin \
-  --policy.dir=/export/wy891/aarosh/tactile_input_model/checkpoints/pi05_xarm_tacin/tacin_v1/20000
+  --policy.dir=/export/wy891/aarosh/tactile_input_model/checkpoints/pi05_xarm_tacin/tacin_v1/19999
 ```
-(For the control, use `--policy.config=pi05_xarm_tacin_shuffled` + its checkpoint dir.)
+(For the control: `--policy.config=pi05_xarm_tacin_shuffled` with
+`--policy.dir=/export/wy891/aarosh/tactile_input_model/checkpoints/pi05_xarm_tacin_shuffled/tacin_shuffled_v1/19999`.)
 Same SSH tunnel (step 1b) and `--host localhost` as always.
 
 **Run a trial with the tacin client** (feeds the latent for the object present):
