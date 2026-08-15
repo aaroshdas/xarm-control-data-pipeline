@@ -153,7 +153,7 @@ def main():
     ap.add_argument("--latent-npy", default=None,
                     help="path to a single 128-d .npy latent (for a NEW/unseen object; see compute_latent.py). "
                          "Overrides the --latents-file lookup.")
-    ap.add_argument("--max-steps", type=int, default=300)
+    ap.add_argument("--max-steps", type=int, default=650)
     ap.add_argument("--dry-run", action="store_true",
                     help="perceive + infer + PRINT the action chunk, but NEVER move the arm (diagnostic)")
     ap.add_argument("--policy", default="tacin", help="policy label for the results CSV")
