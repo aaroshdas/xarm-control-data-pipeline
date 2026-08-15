@@ -31,8 +31,11 @@ Run (on Thor, in the venv that has xarm SDK + pyrealsense2 + openpi-client):
     python3 eval_client.py --host <GPU_SERVER_IP> --prompt "put the red cube into the plastic cup"
 """
 import argparse
+import csv
 import math
+import os
 import time
+from datetime import datetime
 
 import numpy as np
 from PIL import Image
@@ -153,6 +156,10 @@ def main():
     ap.add_argument("--max-steps", type=int, default=300, help="hard cap on control steps per trial")
     ap.add_argument("--dry-run", action="store_true",
                     help="perceive + infer + PRINT the action chunk, but NEVER move the arm (diagnostic)")
+    ap.add_argument("--policy", default="unknown",
+                    help="policy label saved in the results CSV, e.g. vision / tactile / ctrl_shuffled / ctrl_random")
+    ap.add_argument("--object", default="", help="object label saved in the results CSV, e.g. sponge / rock")
+    ap.add_argument("--log", default="eval_results.csv", help="CSV file to append each trial's result to")
     args = ap.parse_args()
 
     cams = Cameras([CAM_BASE_SERIAL, CAM_WRIST_SERIAL])
@@ -189,17 +196,15 @@ def main():
             result = client.infer(obs)
             actions = np.asarray(result["actions"])         # [H, 7], real units (cm/rad)
 
-            # Show the raw chunk the policy returned so we can judge sanity.
-            # Columns are the model's real-unit deltas: xyz(cm), rot(rad), gripper.
-            print(f"\n[infer @ step {step_count}] action chunk (cm, cm, cm, rad, rad, rad, grip):")
-            for i in range(min(EXEC_HORIZON, actions.shape[0])):
-                a = actions[i]
-                print(f"   {i}: "
-                      f"[{a[0]:+.3f} {a[1]:+.3f} {a[2]:+.3f} | "
-                      f"{a[3]:+.3f} {a[4]:+.3f} {a[5]:+.3f} | {a[6]:+.2f}]")
-
             if args.dry_run:
-                # look only — never touch the arm
+                # look only — never touch the arm. Print the whole chunk to judge sanity.
+                # Columns are the model's real-unit deltas: xyz(cm), rot(rad), gripper.
+                print(f"\n[infer @ step {step_count}] action chunk (cm, cm, cm, rad, rad, rad, grip):")
+                for i in range(min(EXEC_HORIZON, actions.shape[0])):
+                    a = actions[i]
+                    print(f"   {i}: "
+                          f"[{a[0]:+.3f} {a[1]:+.3f} {a[2]:+.3f} | "
+                          f"{a[3]:+.3f} {a[4]:+.3f} {a[5]:+.3f} | {a[6]:+.2f}]")
                 step_count += min(EXEC_HORIZON, actions.shape[0])
                 time.sleep(0.5)
                 continue
@@ -235,6 +240,8 @@ def main():
                     gripper_closed = want_close
                     arm.set_gripper_position(GRIPPER_CLOSE if gripper_closed else GRIPPER_OPEN, wait=False)
 
+                print(f"step {step_count:4d}  d_mm=[{dxyz[0]:+5.1f},{dxyz[1]:+5.1f},{dxyz[2]:+5.1f}] "
+                      f"grip={'C' if gripper_closed else 'O'}   ", end="\r")
                 step_count += 1
 
         print("\nreached max-steps.")
@@ -252,7 +259,17 @@ def main():
         cams.close()
         if not args.dry_run:
             res = input("\ntrial result — type 's' for SUCCESS, anything else for FAIL: ").strip().lower()
-            print("SUCCESS" if res == "s" else "FAIL")
+            success = res == "s"
+            print("SUCCESS" if success else "FAIL")
+            # Append one row per trial so results are never lost / mis-tallied.
+            new_file = not os.path.exists(args.log)
+            with open(args.log, "a", newline="") as f:
+                w = csv.writer(f)
+                if new_file:
+                    w.writerow(["timestamp", "policy", "object", "prompt", "result", "steps"])
+                w.writerow([datetime.now().isoformat(timespec="seconds"), args.policy,
+                            args.object, args.prompt, "success" if success else "fail", step_count])
+            print(f"logged -> {os.path.abspath(args.log)}")
         arm.disconnect()
 
 
