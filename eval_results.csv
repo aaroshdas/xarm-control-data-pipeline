@@ -40,7 +40,7 @@ timestamp,policy,object,prompt,result,steps,position_code,notes
 2026-08-17T16:02:57,tacin,foam_dice,put the cube into the bowl,fail,656,4,max steps
 2026-08-17T16:07:20,tacin,foam_dice,put the cube into the bowl,success,437,5,
 2026-08-17T16:10:36,tacin,foam_dice,put the cube into the bowl,fail,407,5,bad grasp missed drop
-2026-08-17T16:13:52,tacin,foam_dice,put the cube into the bowl,fail,616,5,out of bounds
+2026-08-17T16:13:52,tacin,foam_dice,put the cube into the bowl,success,616,5,
 2026-08-17T16:16:29,tacin,foam_dice,put the cube into the bowl,fail,174,6,out of bounds
 2026-08-17T16:20:16,tacin,foam_dice,put the cube into the bowl,fail,174,6,out of bounds
 2026-08-17T16:21:47,tacin,foam_dice,put the cube into the bowl,fail,235,6,out of bounds
@@ -50,3 +50,24 @@ timestamp,policy,object,prompt,result,steps,position_code,notes
 2026-08-17T16:34:49,tacin,foam_dice,put the cube into the bowl,fail,192,8,out of bounds
 2026-08-17T16:36:56,tacin,foam_dice,put the cube into the bowl,fail,360,8,out of bounds
 2026-08-17T16:38:37,tacin,foam_dice,put the cube into the bowl,fail,240,8,out of bounds
+2026-08-17T16:48:51,vision,foam_dice,put the cube into the bowl,success,280,2,
+2026-08-17T16:50:40,vision,foam_dice,put the cube into the bowl,fail,234,2,missed grasp
+2026-08-17T16:52:42,vision,foam_dice,put the cube into the bowl,success,293,2,
+2026-08-17T16:55:27,vision,foam_dice,put the cube into the bowl,success,296,3,
+2026-08-17T16:59:36,vision,foam_dice,put the cube into the bowl,success,349,3,
+2026-08-17T17:03:12,vision,foam_dice,put the cube into the bowl,success,428,3,
+2026-08-17T17:06:10,vision,foam_dice,put the cube into the bowl,success,362,4,
+2026-08-17T17:08:56,vision,foam_dice,put the cube into the bowl,success,447,4,
+2026-08-17T17:11:06,vision,foam_dice,put the cube into the bowl,fail,259,4,missed grasp
+2026-08-17T17:13:36,vision,foam_dice,put the cube into the bowl,success,285,5,
+2026-08-17T17:16:29,vision,foam_dice,put the cube into the bowl,success,334,5,
+2026-08-17T17:19:01,vision,foam_dice,put the cube into the bowl,success,366,5,
+2026-08-17T17:23:14,vision,foam_dice,put the cube into the bowl,fail,656,6,max steps
+2026-08-17T17:25:19,vision,foam_dice,put the cube into the bowl,fail,656,6,max steps
+2026-08-17T17:27:06,vision,foam_dice,put the cube into the bowl,fail,222,6,out of bounds
+2026-08-17T17:30:09,vision,foam_dice,put the cube into the bowl,success,461,7,
+2026-08-17T17:32:34,vision,foam_dice,put the cube into the bowl,fail,400,7,out of bounds
+2026-08-17T17:35:19,vision,foam_dice,put the cube into the bowl,success,452,7,
+2026-08-17T17:38:35,vision,foam_dice,put the cube into the bowl,success,492,8,
+2026-08-17T17:41:05,vision,foam_dice,put the cube into the bowl,success,416,8,
+2026-08-17T17:44:49,vision,foam_dice,put the cube into the bowl,fail,616,8,out of bounds
