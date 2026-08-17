@@ -1,0 +1,28 @@
+timestamp,policy,object,prompt,result,steps,position_code,notes
+2026-08-17T13:37:19,vision,foam_dice,put the cube into the bowl,fail,240,1,out of bounds
+2026-08-17T13:42:04,vision,foam_dice,put the cube into the bowl,fail,166,1,missed grasp
+2026-08-17T13:45:30,vision,foam_dice,put the cube into the bowl,success,338,1,
+2026-08-17T14:11:32,tacin,foam_dice,put the cube into the bowl,fail,301,1,bad grasp dropped after pickup
+2026-08-17T14:14:24,tacin,foam_dice,put the cube into the bowl,success,277,1,
+2026-08-17T14:16:53,tacin,foam_dice,put the cube into the bowl,success,269,1,
+2026-08-17T14:20:22,tacin,foam_dice,put the cube into the bowl,success,256,2,
+2026-08-17T14:22:24,tacin,foam_dice,put the cube into the bowl,success,292,2,
+2026-08-17T14:25:28,tacin,foam_dice,put the cube into the bowl,success,248,2,
+2026-08-17T14:29:36,tacin,foam_dice,put the cube into the bowl,success,273,3,
+2026-08-17T14:32:38,tacin,foam_dice,put the cube into the bowl,success,312,3,
+2026-08-17T14:34:57,tacin,foam_dice,put the cube into the bowl,success,340,3,
+2026-08-17T14:38:28,shuffled,foam_dice,put the cube into the bowl,fail,96,1,out of bounds
+2026-08-17T14:39:26,shuffled,foam_dice,put the cube into the bowl,fail,120,1,out of bounds
+2026-08-17T14:40:37,shuffled,foam_dice,put the cube into the bowl,fail,136,1,out of bounds
+2026-08-17T14:43:44,shuffled,foam_dice,put the cube into the bowl,fail,552,2,out of bounds / complete fail
+2026-08-17T14:45:58,shuffled,foam_dice,put the cube into the bowl,success,292,2,
+2026-08-17T14:48:59,shuffled,foam_dice,put the cube into the bowl,success,359,2,
+2026-08-17T14:51:43,shuffled,foam_dice,put the cube into the bowl,fail,360,3,out of bounds
+2026-08-17T14:54:12,shuffled,foam_dice,put the cube into the bowl,success,296,3,
+2026-08-17T14:57:56,shuffled,foam_dice,put the cube into the bowl,success,392,3,
+2026-08-17T15:01:52,shuffled,foam_dice,put the cube into the bowl,success,395,4,
+2026-08-17T15:03:46,shuffled,foam_dice,put the cube into the bowl,fail,277,4,missed grasp
+2026-08-17T15:06:31,shuffled,foam_dice,put the cube into the bowl,success,313,4,
+2026-08-17T15:10:27,shuffled,foam_dice,put the cube into the bowl,fail,230,5,missed grasp
+2026-08-17T15:11:28,shuffled,foam_dice,put the cube into the bowl,fail,160,5,out of bounds
+2026-08-17T15:15:04,shuffled,foam_dice,put the cube into the bowl,success,434,5,
