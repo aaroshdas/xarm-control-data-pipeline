@@ -41,16 +41,25 @@ nvidia-smi --query-gpu=index,memory.used,utilization.gpu --format=csv,noheader
 ```
 5. Start the server. **For the real tactile model:**
 ```bash
-CUDA_VISIBLE_DEVICES=1 $PY scripts/serve_policy.py policy:checkpoint \
+CUDA_VISIBLE_DEVICES=<gpu> $PY scripts/serve_policy.py policy:checkpoint \
   --policy.config=pi05_xarm_tacin \
   --policy.dir=/export/wy891/aarosh/tactile_input_model/checkpoints/pi05_xarm_tacin/tacin_v1/19999
 ```
 **For the shuffled control instead**, use:
 ```bash
-CUDA_VISIBLE_DEVICES=1 $PY scripts/serve_policy.py policy:checkpoint \
+CUDA_VISIBLE_DEVICES=<gpu> $PY scripts/serve_policy.py policy:checkpoint \
   --policy.config=pi05_xarm_tacin_shuffled \
   --policy.dir=/export/wy891/aarosh/tactile_input_model/checkpoints/pi05_xarm_tacin_shuffled/tacin_shuffled_v1/19999
 ```
+**For the NULL (matched no-tactile) baseline**, use:
+```bash
+CUDA_VISIBLE_DEVICES=<gpu> $PY scripts/serve_policy.py policy:checkpoint \
+  --policy.config=pi05_xarm_tacin_null \
+  --policy.dir=/export/wy891/aarosh/tactile_input_model/checkpoints/pi05_xarm_tacin_null/tacin_null_v1/19999
+```
+> The null model feeds itself an all-zeros token, so it IGNORES any latent you send.
+> Run it with the plain **`eval_client.py`** (like vision — NO `--object`/latent needed),
+> labeled `--policy null`. It's still served from the DEV env, though.
 6. Wait for `serving on 0.0.0.0:8000`. Detach: **Ctrl-b, then d**.
 
 ---
@@ -136,7 +145,7 @@ close-ups — NOT a far scene shot). Put them next to the script, e.g. `duck1.jp
 
 **2. Compute the latent locally** (run from this folder, where `best.pt` lives):
 ```bash
-python3 compute_latent.py best.pt rubber_duck.npy duck1.jpg duck2.jpg
+python3 ./latents/compute_latent.py ./latents/best.pt ./latents/rubber_duck.npy ./latents/duck1.jpg ./latents/duck2.jpg ./latents/duck3.jpg
 ```
 It prints the saved shape and (if >1 photo) an intra-cosine — want > 0.5 (your photos
 agree). First run downloads DINOv2 automatically. Output: `rubber_duck.npy` (128-d).
