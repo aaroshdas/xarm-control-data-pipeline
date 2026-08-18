@@ -41,19 +41,19 @@ nvidia-smi --query-gpu=index,memory.used,utilization.gpu --format=csv,noheader
 ```
 5. Start the server. **For the real tactile model:**
 ```bash
-CUDA_VISIBLE_DEVICES=<gpu> $PY scripts/serve_policy.py policy:checkpoint \
+CUDA_VISIBLE_DEVICES=1 $PY scripts/serve_policy.py policy:checkpoint \
   --policy.config=pi05_xarm_tacin \
   --policy.dir=/export/wy891/aarosh/tactile_input_model/checkpoints/pi05_xarm_tacin/tacin_v1/19999
 ```
 **For the shuffled control instead**, use:
 ```bash
-CUDA_VISIBLE_DEVICES=<gpu> $PY scripts/serve_policy.py policy:checkpoint \
+CUDA_VISIBLE_DEVICES=1 $PY scripts/serve_policy.py policy:checkpoint \
   --policy.config=pi05_xarm_tacin_shuffled \
   --policy.dir=/export/wy891/aarosh/tactile_input_model/checkpoints/pi05_xarm_tacin_shuffled/tacin_shuffled_v1/19999
 ```
 **For the NULL (matched no-tactile) baseline**, use:
 ```bash
-CUDA_VISIBLE_DEVICES=<gpu> $PY scripts/serve_policy.py policy:checkpoint \
+CUDA_VISIBLE_DEVICES=1 $PY scripts/serve_policy.py policy:checkpoint \
   --policy.config=pi05_xarm_tacin_null \
   --policy.dir=/export/wy891/aarosh/tactile_input_model/checkpoints/pi05_xarm_tacin_null/tacin_null_v1/19999
 ```
