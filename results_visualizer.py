@@ -15,28 +15,22 @@ from pathlib import Path
 
 import pandas as pd
 
-# ----------------------------------------------------------------------------
-# Column names in the source CSV. Edit this if a future export renames columns.
-# ----------------------------------------------------------------------------
+
 COL_POLICY = "policy"
 COL_RESULT = "result"
 COL_STEPS = "steps"
 COL_POSITION = "position_code"
 COL_NOTES = "notes"
+COL_GRASP_RESULT = "grasp_result"
 
 SUCCESS_VALUE = "success"
 FAIL_VALUE = "fail"
 
-# Failure categories to track, in priority order. Each maps to one or more
-# substrings (case-insensitive) that, if found in `notes`, assign that row to
-# the category. Order matters: more specific / earlier patterns win when a
-# note could match more than one (e.g. "bad grasp missed drop" matches
-# "bad grasp" before it could be confused with a missed-grasp note).
 FAILURE_CATEGORIES: list[tuple[str, list[str]]] = [
     ("out of bounds", ["out of bounds"]),
     ("max steps", ["max steps"]),
     ("bad grasp", ["bad grasp"]),
-    ("missed grasp", ["missed grasp"]),
+    ("missed drop", ["missed drop"]),
 ]
 OTHER_CATEGORY = "other"
 
@@ -66,6 +60,7 @@ def load_data(csv_path: str | Path) -> pd.DataFrame:
         )
 
     df[COL_RESULT] = df[COL_RESULT].astype(str).str.strip().str.lower()
+    df[COL_GRASP_RESULT] = df[COL_GRASP_RESULT].astype(str).str.strip().str.lower()
     if COL_NOTES not in df.columns:
         df[COL_NOTES] = ""
 
@@ -100,6 +95,20 @@ class EvalAnalyzer:
         g = data.groupby(group_cols)
         out = g["is_success"].agg(n_runs="count", n_success="sum")
         out["accuracy"] = (out["n_success"] / out["n_runs"]).round(4)
+        return out.reset_index().sort_values(group_cols)
+
+    def grasp_accuracy(self, by="policy", df: pd.DataFrame | None = None) -> pd.DataFrame:
+        """
+        Grasp success rate, grouped by `by` (a column name or list of column
+        names). Uses the grasp_result column and defaults to grouping by policy.
+        """
+        data = self.df if df is None else df
+        group_cols = [by] if isinstance(by, str) else list(by)
+        is_grasp_success = data[COL_GRASP_RESULT] == SUCCESS_VALUE
+        out = is_grasp_success.groupby([data[c] for c in group_cols]).agg(
+            n_runs="count", n_grasp_success="sum"
+        )
+        out["grasp_accuracy"] = (out["n_grasp_success"] / out["n_runs"]).round(4)
         return out.reset_index().sort_values(group_cols)
 
     # -- steps -------------------------------------------------------------
@@ -190,11 +199,14 @@ class EvalAnalyzer:
         # _print_header("Average steps by policy (all runs)", level=2)
         # print(self.avg_steps(df=df).to_string(index=False))
 
+        _print_header("Grasp accuracy by policy", level=2)
+        print(self.grasp_accuracy(df=df).to_string(index=False))
+
         _print_header("Average steps by policy, successes only", level=2)
         print(self.avg_steps(only_result=SUCCESS_VALUE, df=df).to_string(index=False))
 
-        _print_header("Average steps by policy, failures only", level=2)
-        print(self.avg_steps(only_result=FAIL_VALUE, df=df).to_string(index=False))
+        # _print_header("Average steps by policy, failures only", level=2)
+        # print(self.avg_steps(only_result=FAIL_VALUE, df=df).to_string(index=False))
 
         # _print_header("Average steps by policy x position_code (all runs)", level=2)
         # print(self.avg_steps_by_position(df=df).to_string())
