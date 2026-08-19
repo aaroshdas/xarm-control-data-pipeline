@@ -1,2 +1,19 @@
 timestamp,policy,object,result,steps,grasp_result,position_code,position_difficulty,notes
-
+2026-08-19T19:02:16,vision,wooden_block,success,269,success,1,easy,
+2026-08-19T19:04:31,vision,wooden_block,success,312,success,1,easy,
+2026-08-19T19:06:33,vision,wooden_block,success,315,success,1,easy,
+2026-08-19T19:09:07,shuffled,wooden_block,success,280,success,1,easy,
+2026-08-19T19:10:55,shuffled,wooden_block,success,270,success,1,easy,
+2026-08-19T19:12:49,shuffled,wooden_block,success,304,success,1,easy,
+2026-08-19T19:15:11,tacin,wooden_block,success,272,success,1,easy,
+2026-08-19T19:17:06,tacin,wooden_block,success,301,success,1,easy,
+2026-08-19T19:18:59,tacin,wooden_block,success,297,success,1,easy,
+2026-08-19T19:27:44,tacin,wooden_block,fail,272,fail,2,easy,out of bounds
+2026-08-19T19:29:05,tacin,wooden_block,fail,160,fail,2,easy,out of bounds
+2026-08-19T19:31:47,tacin,wooden_block,success,418,success,2,easy,
+2026-08-19T19:35:09,shuffled,wooden_block,fail,424,success,2,easy,out of bounds
+2026-08-19T19:36:54,shuffled,wooden_block,fail,392,fail,2,easy,out of bounds
+2026-08-19T19:39:22,shuffled,wooden_block,success,353,success,2,easy,
+2026-08-19T19:42:11,vision,wooden_block,fail,336,fail,2,easy,out of bounds
+2026-08-19T19:44:12,vision,wooden_block,fail,600,fail,2,easy,max steps
+2026-08-19T19:46:05,vision,wooden_block,fail,176,fail,2,easy,out of bounds
