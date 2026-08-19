@@ -33,3 +33,14 @@ timestamp,policy,object,result,steps,grasp_result,position_code,position_difficu
 2026-08-19T14:32:25,shuffled,foam_dice,fail,352,fail,4,hard,out of bounds
 2026-08-19T14:34:21,shuffled,foam_dice,fail,184,fail,4,hard,out of bounds
 2026-08-19T14:37:43,tacin,foam_dice,fail,544,success,4,hard,out of bounds
+2026-08-19T14:47:31,tacin,foam_dice,fail,252,fail,4,hard,out of bounds
+2026-08-19T14:49:49,tacin,foam_dice,fail,228,fail,4,hard,out of bounds
+2026-08-19T14:56:33,tacin,foam_dice,fail,384,fail,5,easy,out of bounds
+2026-08-19T14:58:58,tacin,foam_dice,fail,496,success,5,easy,out of bounds
+2026-08-19T15:02:02,tacin,foam_dice,fail,450,success,5,easy,missed drop
+2026-08-19T15:05:40,shuffled,foam_dice,success,368,success,5,easy,
+2026-08-19T15:08:43,shuffled,foam_dice,success,454,success,5,easy,
+2026-08-19T15:11:15,shuffled,foam_dice,success,351,success,5,easy,
+2026-08-19T15:15:22,null,foam_dice,fail,536,success,5,easy,out of bounds
+2026-08-19T15:29:25,null,foam_dice,fail,120,fail,5,easy,out of bounds
+2026-08-19T15:30:58,null,foam_dice,fail,136,fail,5,easy,out of bounds
