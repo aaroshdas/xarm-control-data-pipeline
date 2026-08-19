@@ -40,7 +40,25 @@ timestamp,policy,object,result,steps,grasp_result,position_code,position_difficu
 2026-08-19T15:02:02,tacin,foam_dice,fail,450,success,5,easy,missed drop
 2026-08-19T15:05:40,shuffled,foam_dice,success,368,success,5,easy,
 2026-08-19T15:08:43,shuffled,foam_dice,success,454,success,5,easy,
-2026-08-19T15:11:15,shuffled,foam_dice,success,351,success,5,easy,
+2026-08-19T15:11:15,shuffled,foam_dice,fail,351,success,5,easy,missed drop
 2026-08-19T15:15:22,null,foam_dice,fail,536,success,5,easy,out of bounds
 2026-08-19T15:29:25,null,foam_dice,fail,120,fail,5,easy,out of bounds
 2026-08-19T15:30:58,null,foam_dice,fail,136,fail,5,easy,out of bounds
+2026-08-19T16:25:07,tacin,foam_dice,success,336,success,6,easy,
+2026-08-19T16:27:11,tacin,foam_dice,fail,600,fail,6,easy,max steps
+2026-08-19T16:31:54,tacin,foam_dice,success,368,success,6,easy,
+2026-08-19T16:36:11,shuffled,foam_dice,fail,416,fail,6,easy,out of bounds
+2026-08-19T16:40:45,shuffled,foam_dice,success,412,success,6,easy,
+2026-08-19T16:43:03,shuffled,foam_dice,fail,496,fail,6,easy,out of bounds
+2026-08-19T16:45:50,null,foam_dice,fail,600,fail,6,easy,max steps
+2026-08-19T16:47:30,null,foam_dice,fail,126,fail,6,easy,out of bounds
+2026-08-19T16:50:23,null,foam_dice,fail,600,fail,6,easy,max steps
+2026-08-19T17:04:48,null,foam_dice,fail,600,fail,7,hard,max steps
+2026-08-19T17:06:24,null,foam_dice,fail,143,fail,7,hard,out of bounds
+2026-08-19T17:08:23,null,foam_dice,success,290,success,7,hard,
+2026-08-19T17:10:54,shuffled,foam_dice,success,263,success,7,hard,
+2026-08-19T17:13:24,shuffled,foam_dice,success,314,success,7,hard,
+2026-08-19T17:15:26,shuffled,foam_dice,success,309,success,7,hard,
+2026-08-19T17:19:23,tacin,foam_dice,success,289,success,7,hard,
+2026-08-19T17:22:08,tacin,foam_dice,success,347,success,7,hard,
+2026-08-19T17:24:42,tacin,foam_dice,fail,600,fail,7,hard,max steps
