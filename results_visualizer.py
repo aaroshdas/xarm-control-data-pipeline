@@ -146,6 +146,27 @@ class EvalAnalyzer:
         ).round(2)
         return pivot
 
+    def position_pass_accuracy(
+        self, threshold: float = 2 / 3, df: pd.DataFrame | None = None
+    ) -> pd.DataFrame:
+        """
+        For each policy, treat a position_code as "passed" if the policy's
+        success rate on that position_code is >= threshold (default 2/3).
+        Accuracy = passed position codes / total position codes attempted.
+        """
+        data = self.df if df is None else df
+        per_pos = (
+            data.groupby([COL_POLICY, COL_POSITION])["is_success"]
+            .mean()
+            .reset_index(name="pos_success_rate")
+        )
+        per_pos["passed"] = per_pos["pos_success_rate"] >= threshold
+        out = per_pos.groupby(COL_POLICY)["passed"].agg(
+            n_positions="count", n_passed="sum"
+        )
+        out["accuracy"] = (out["n_passed"] / out["n_positions"]).round(4)
+        return out.reset_index().sort_values(COL_POLICY)
+
     def accuracy_by_position(self, df: pd.DataFrame | None = None) -> pd.DataFrame:
         """Pivot table: rows = position_code, columns = policy, values = accuracy."""
         data = self.df if df is None else df
@@ -213,6 +234,12 @@ class EvalAnalyzer:
 
         _print_header("Accuracy by policy x position_code", level=2)
         print(self.accuracy_by_position(df=df).to_string())
+
+        _print_header(
+            "Accuracy by policy over position codes (position passes at >= 2/3 success)",
+            level=2,
+        )
+        print(self.position_pass_accuracy(df=df).to_string(index=False))
 
         _print_header("Failure category breakdown by policy (% of that policy's failures)", level=2)
         print(self.failure_breakdown(normalize=True, df=df).to_string())
