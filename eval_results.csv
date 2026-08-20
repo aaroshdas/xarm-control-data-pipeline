@@ -71,3 +71,48 @@ timestamp,policy,object,result,steps,grasp_result,position_code,position_difficu
 2026-08-20T15:32:48,vision,wooden_block,success,291,success,8,easy,
 2026-08-20T15:36:26,vision,wooden_block,success,321,success,8,easy,
 2026-08-20T15:38:31,vision,wooden_block,success,300,success,8,easy,
+2026-08-20T15:48:53,vision,stuffed_cube,success,291,success,9,easy,
+2026-08-20T15:51:17,vision,stuffed_cube,success,273,success,9,easy,
+2026-08-20T15:53:22,vision,stuffed_cube,success,288,success,9,easy,
+2026-08-20T15:57:02,shuffled,stuffed_cube,success,263,success,9,easy,
+2026-08-20T15:58:58,shuffled,stuffed_cube,success,280,success,9,easy,
+2026-08-20T16:01:26,shuffled,stuffed_cube,success,288,success,9,easy,
+2026-08-20T16:04:59,tacin,stuffed_cube,success,331,success,9,easy,
+2026-08-20T16:07:26,tacin,stuffed_cube,success,284,success,9,easy,
+2026-08-20T16:09:41,tacin,stuffed_cube,success,328,success,9,easy,
+2026-08-20T16:13:04,tacin,stuffed_cube,success,263,success,10,easy,
+2026-08-20T16:14:59,tacin,stuffed_cube,success,305,success,10,easy,
+2026-08-20T16:18:09,tacin,stuffed_cube,success,464,success,10,easy,
+2026-08-20T16:21:58,shuffled,stuffed_cube,success,384,success,10,easy,
+2026-08-20T16:25:40,shuffled,stuffed_cube,success,414,success,10,easy,
+2026-08-20T16:28:07,shuffled,stuffed_cube,success,348,success,10,easy,
+2026-08-20T16:31:38,vision,stuffed_cube,fail,472,success,10,easy,out of bounds
+2026-08-20T16:33:11,vision,stuffed_cube,fail,154,fail,10,easy,out of bounds
+2026-08-20T16:35:26,vision,stuffed_cube,success,336,success,10,easy,
+2026-08-20T16:38:45,vision,stuffed_cube,fail,116,fail,11,easy,out of bounds
+2026-08-20T16:39:58,vision,stuffed_cube,fail,143,fail,11,easy,out of bounds
+2026-08-20T16:40:58,vision,stuffed_cube,fail,108,fail,11,easy,out of bounds
+2026-08-20T16:44:00,shuffled,stuffed_cube,success,473,success,11,easy,
+2026-08-20T16:46:44,shuffled,stuffed_cube,fail,440,success,11,easy,out of bounds
+2026-08-20T16:50:06,shuffled,stuffed_cube,success,453,success,11,easy,
+2026-08-20T16:53:43,tacin,stuffed_cube,fail,201,fail,11,easy,out of bounds
+2026-08-20T16:56:02,tacin,stuffed_cube,fail,192,fail,11,easy,out of bounds
+2026-08-20T16:58:25,tacin,stuffed_cube,fail,528,success,11,easy,out of bounds
+2026-08-20T17:06:58,tacin,stuffed_cube,success,368,success,12,easy,
+2026-08-20T17:09:11,tacin,stuffed_cube,success,364,success,12,easy,
+2026-08-20T17:11:38,tacin,stuffed_cube,success,373,success,12,easy,
+2026-08-20T17:16:57,shuffled,stuffed_cube,success,464,success,12,easy,
+2026-08-20T17:19:07,shuffled,stuffed_cube,success,315,success,12,easy,
+2026-08-20T17:20:46,shuffled,stuffed_cube,fail,272,success,12,easy,out of bounds
+2026-08-20T17:23:40,vision,stuffed_cube,success,452,success,12,easy,
+2026-08-20T17:27:27,vision,stuffed_cube,success,600,success,12,easy,
+2026-08-20T17:30:40,vision,stuffed_cube,fail,536,fail,12,easy,out of bounds
+2026-08-20T17:34:53,vision,stuffed_cube,success,353,success,13,easy,
+2026-08-20T17:36:43,vision,stuffed_cube,fail,416,success,13,easy,out of bounds
+2026-08-20T17:39:35,vision,stuffed_cube,fail,496,fail,13,easy,out of bounds
+2026-08-20T17:43:52,shuffled,stuffed_cube,success,384,success,13,easy,
+2026-08-20T17:46:20,shuffled,stuffed_cube,success,370,success,13,easy,
+2026-08-20T17:49:19,shuffled,stuffed_cube,success,460,success,13,easy,
+2026-08-20T17:53:49,tacin,stuffed_cube,success,600,success,13,easy,
+2026-08-20T17:56:22,tacin,stuffed_cube,success,388,success,13,easy,
+2026-08-20T18:00:45,tacin,stuffed_cube,success,386,success,13,easy,
